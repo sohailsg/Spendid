@@ -24,7 +24,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="hero-btn">Create free account</a>
-            <a href="#how" class="hero-btn">See how it works</a>
+            <a href="#" class="hero-btn" data-modal-open="how-it-works">See how it works</a>
         </div>
 
         <div class="hero-dashboard">
@@ -95,6 +95,22 @@
         </div>
     </div>
 </section>
+
+<div class="modal" id="how-it-works-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-modal-close></div>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-label="How Spendly works">
+        <button class="modal-close" data-modal-close aria-label="Close video">&times;</button>
+        <div class="modal-video">
+            <iframe
+                id="how-it-works-video"
+                title="How Spendly works"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"></iframe>
+        </div>
+    </div>
+</div>
 
 <section class="cta-section">
     <div class="cta-inner">

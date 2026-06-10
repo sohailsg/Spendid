@@ -101,7 +101,7 @@ Every new file that will be created.
 Any new pip packages. If none: state "No new dependencies".
 
 ## Rules for implementation
-Specific constraints Opencode must follow. Always include:
+Specific constraints OPENCODE must follow. Always include:
 - No SQLAlchemy or ORMs
 - Parameterised queries only
 - Passwords hashed with werkzeug

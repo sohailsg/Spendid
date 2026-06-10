@@ -1,6 +1,6 @@
 import sqlite3
 import os
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 DB_NAME = "expense_tracker.db"
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), DB_NAME)
@@ -23,6 +23,16 @@ def create_user(name, email, password):
         )
         conn.commit()
         return cur.lastrowid
+    finally:
+        conn.close()
+
+
+def get_user_by_email(email):
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT * FROM users WHERE email = ?", (email,))
+        return cur.fetchone()
     finally:
         conn.close()
 

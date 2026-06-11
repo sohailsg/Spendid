@@ -1,5 +1,12 @@
 # AGENTS.md
 
+## Skills
+
+Before starting any task, check your `available_skills` list. For each skill,
+read its SKILL.md file's `## When to load` section. If the user's prompt
+matches ANY condition listed there, load that skill BEFORE planning or coding.
+Do not skip this step. Do not assume — read the skill file and check.
+
 ## Project
 
 Spendly — a Flask expense tracker. Single-module Flask app (`app.py`) with Jinja templates in `templates/`, static assets in `static/`, and a `database/` package for SQLite access. This is a **step-by-step student/learning project** — many routes in `app.py` are intentional placeholders that return `"... — coming in Step N"`. Do not "fix" them by implementing ahead of the relevant step; match the step in the comment header above each placeholder block.

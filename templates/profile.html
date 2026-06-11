@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="profile-section">
+    <div class="profile-inner">
+
+        <div class="profile-header">
+            <h1 class="profile-title">My Profile</h1>
+            <p class="profile-subtitle">Your account overview</p>
+        </div>
+
+        <div class="profile-top-row">
+            <div class="profile-card profile-card--user">
+                <div class="profile-avatar">
+                    <span>{{ user.name[0] }}</span>
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">{{ user.name }}</h2>
+                    <p class="profile-email">{{ user.email }}</p>
+                    <p class="profile-member">Member since {{ user.member_since }}</p>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-card stat-card--accent">
+                    <div class="stat-icon-wrap">
+                        <i data-lucide="wallet"></i>
+                    </div>
+                    <span class="stat-value">{{ "{:.2f}".format(stats.total_spent) }}</span>
+                    <span class="stat-label">Total Spent</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrap">
+                        <i data-lucide="receipt"></i>
+                    </div>
+                    <span class="stat-value">{{ stats.transaction_count }}</span>
+                    <span class="stat-label">Transactions</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrap">
+                        <i data-lucide="tag"></i>
+                    </div>
+                    <span class="stat-value">{{ stats.top_category }}</span>
+                    <span class="stat-label">Top Category</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-card-header">
+                <h3 class="profile-section-title">
+                    <i data-lucide="clock"></i>
+                    Recent Transactions
+                </h3>
+            </div>
+            <table class="profile-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th class="text-right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tx in transactions %}
+                    <tr>
+                        <td class="td-date">{{ tx.date }}</td>
+                        <td class="td-desc">{{ tx.description }}</td>
+                        <td><span class="category-badge badge-{{ tx.category|lower }}">{{ tx.category }}</span></td>
+                        <td class="text-right td-amount">{{ "{:.2f}".format(tx.amount) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-card-header">
+                <h3 class="profile-section-title">
+                    <i data-lucide="pie-chart"></i>
+                    Category Breakdown
+                </h3>
+            </div>
+            <div class="category-list">
+                {% for cat in categories %}
+                <div class="category-row">
+                    <span class="category-name">{{ cat.name }}</span>
+                    <div class="category-bar-track">
+                        <div class="category-bar cat-bar-{{ cat.name|lower }}" style="width: {{ cat.percentage }}%"></div>
+                    </div>
+                    <span class="category-pct">{{ cat.percentage }}%</span>
+                    <span class="category-total">{{ "{:.2f}".format(cat.total) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

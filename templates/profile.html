@@ -29,7 +29,7 @@
                     <div class="stat-icon-wrap">
                         <i data-lucide="wallet"></i>
                     </div>
-                    <span class="stat-value">{{ "{:.2f}".format(stats.total_spent) }}</span>
+                    <span class="stat-value">₹{{ "{:.2f}".format(stats.total_spent) }}</span>
                     <span class="stat-label">Total Spent</span>
                 </div>
                 <div class="stat-card">
@@ -71,7 +71,7 @@
                         <td class="td-date">{{ tx.date }}</td>
                         <td class="td-desc">{{ tx.description }}</td>
                         <td><span class="category-badge badge-{{ tx.category|lower }}">{{ tx.category }}</span></td>
-                        <td class="text-right td-amount">{{ "{:.2f}".format(tx.amount) }}</td>
+                        <td class="text-right td-amount">₹{{ "{:.2f}".format(tx.amount) }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -93,7 +93,7 @@
                         <div class="category-bar cat-bar-{{ cat.name|lower }}" style="width: {{ cat.percentage }}%"></div>
                     </div>
                     <span class="category-pct">{{ cat.percentage }}%</span>
-                    <span class="category-total">{{ "{:.2f}".format(cat.total) }}</span>
+                    <span class="category-total">₹{{ "{:.2f}".format(cat.total) }}</span>
                 </div>
                 {% endfor %}
             </div>

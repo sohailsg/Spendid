@@ -1,0 +1,550 @@
+html[data-theme=dark] {
+  color-scheme: dark;
+  --bg: #0f1117;
+  --surface: #181b24;
+  --border: #2a2f3d;
+  --text: #e8eaef;
+  --muted: #8b93a7;
+  --accent: #6c9fff;
+  --user: #3dd68c;
+  --assistant: #6c9fff;
+  --tool: #e8a23a;
+  --shell: #c678f0;
+  --other: #5c6370;
+  --danger: #f87171;
+  --track-bg: #252936;
+  --bar-output: #8ab4ff;
+  --btn-fg: #0f1117;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html[data-theme=light] {
+  color-scheme: light;
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --border: #d5dae6;
+  --text: #1a1d26;
+  --muted: #5c6478;
+  --accent: #2563eb;
+  --user: #059669;
+  --assistant: #2563eb;
+  --tool: #d97706;
+  --shell: #7c3aed;
+  --other: #64748b;
+  --danger: #dc2626;
+  --track-bg: #e2e6ef;
+  --bar-output: #60a5fa;
+  --btn-fg: #f8fafc;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  min-width: 220px;
+}
+
+button {
+  background: var(--accent);
+  color: var(--btn-fg);
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(1.08);
+}
+
+/**
+ * Page chrome: layout shell, grids, observable row, static index.html lists.
+ * @see ADR-005
+ */
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.session-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.dashboard-grid > * {
+  min-width: 0;
+}
+
+.slot-dashboard-grid {
+  display: contents;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .card.span-2,
+  .card.span-3 {
+    grid-column: span 1;
+  }
+}
+.gauge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.flag-list,
+.rec-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+}
+
+.flag-list li {
+  margin-bottom: 0.5rem;
+}
+.flag-list .sev {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--danger);
+  margin-right: 0.35rem;
+}
+.flag-list .sev.medium {
+  color: var(--tool);
+}
+
+/**
+ * Dynamic grid surface for dashboard cards.
+ * @see ADR-005
+ */
+.dashboard-grid {
+  width: 100%;
+  display: grid;
+  gap: 0.875rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-auto-rows: minmax(220px, auto);
+}
+
+.dashboard-grid > * {
+  min-width: 0;
+}
+
+.dashboard-grid .card-a {
+  grid-area: a;
+}
+
+.dashboard-grid .card-b {
+  grid-area: b;
+}
+
+.dashboard-grid .card-c {
+  grid-area: c;
+}
+
+.dashboard-grid .card-d {
+  grid-area: d;
+}
+
+.dashboard-grid .card-e {
+  grid-area: e;
+}
+
+.dashboard-grid .card-f {
+  grid-area: f;
+}
+
+.dashboard-grid .card-g {
+  grid-area: g;
+}
+
+.dashboard-grid .card-h {
+  grid-area: h;
+}
+
+.dashboard-grid .card-i {
+  grid-area: i;
+}
+
+.dashboard-grid .card-j {
+  grid-area: j;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+}
+/**
+ * Section panels produced by `dashboardCardHtml`.
+ * @see ADR-005
+ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  min-width: 180px;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+/**
+ * Observable usage gauge + Chart.js dial slot.
+ * @see ADR-005
+ */
+.gauge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 12rem;
+}
+@media (max-width: 462px) {
+  .gauge {
+    width: 100%;
+    min-width: 8rem;
+  }
+}
+.gauge.gauge--with-dial .gauge-value {
+  font-size: clamp(1.15rem, 2.8vw, 1rem);
+  line-height: 1.1;
+  margin-bottom: -0.2rem;
+}
+.gauge.gauge--with-dial .gauge-value-label {
+  font-size: clamp(65%, 0.4vw, 0.4rem);
+  font-weight: 600;
+}
+.gauge.gauge--with-dial .muted.small {
+  max-width: 14rem;
+  line-height: 1.35;
+}
+
+.gauge-dial-slot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: min(240px, 100%);
+  pointer-events: none;
+  margin: 0 auto;
+}
+@media (max-width: 462px) {
+  .gauge-dial-slot {
+    position: relative;
+    left: initial;
+    top: initial;
+    transform: none;
+  }
+}
+.gauge-dial-slot canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.gauge-center-copy {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  margin-top: 0;
+  padding: 0 0.4rem;
+  bottom: 0;
+  width: 100%;
+}
+
+.gauge-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/**
+ * Horizontal usage breakdown rows (`usageBarsInnerHtml`).
+ * @see ADR-005
+ */
+.bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 165px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.bar-row span:first-child {
+  width: 5.5rem;
+  min-width: 0;
+  color: var(--muted);
+  flex: 0 1 auto;
+}
+@media (max-width: 256px) {
+  .bar-row span:first-child {
+    width: auto;
+    min-width: 0;
+    padding-right: 0;
+    flex: 1 1 35%;
+  }
+}
+
+.bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--track-bg);
+  border-radius: 5px;
+  overflow: hidden;
+}
+@media (max-width: 256px) {
+  .bar-track {
+    flex: 0 1 65%;
+  }
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.2s ease;
+}
+.bar-fill.input {
+  background: var(--assistant);
+}
+.bar-fill.output {
+  background: var(--bar-output);
+}
+.bar-fill.tool {
+  background: var(--tool);
+}
+.bar-fill.shell {
+  background: var(--shell);
+}
+
+/**
+ * Vertical tool/context histogram bars (`verticalBarsInnerHtml`).
+ * Modifiers on `.bars` from histogram markup.
+ */
+.bars.vertical {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.5rem;
+  min-height: 120px;
+}
+.bars.vertical.tall {
+  min-height: 180px;
+  flex-wrap: wrap;
+}
+
+.vbar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  color: var(--muted);
+  max-width: 72px;
+}
+
+.vbar-track {
+  width: 14px;
+  height: 100px;
+  background: var(--track-bg);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.vbar-fill {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: height 0.2s ease;
+}
+
+.vbar-label {
+  writing-mode: horizontal-tb;
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.15;
+  max-height: 2.8em;
+  overflow: hidden;
+}
+
+/**
+ * Efficiency score + sparkline view styles.
+ * @see ADR-005
+ */
+.score-block {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.score {
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.sparkline-wrap {
+  margin-top: 0.75rem;
+}
+.sparkline-wrap svg {
+  width: 100%;
+  max-width: 240px;
+  height: 48px;
+}
+.sparkline-wrap polyline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/**
+ * Session timeline track + legend.
+ */
+.timeline-meta {
+  margin-bottom: 0.5rem;
+}
+
+.timeline-track {
+  display: flex;
+  height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--track-bg);
+}
+
+.timeline-seg {
+  height: 100%;
+  min-width: 2px;
+  flex-shrink: 0;
+}
+.timeline-seg.user {
+  background: var(--user);
+}
+.timeline-seg.assistant {
+  background: var(--assistant);
+}
+.timeline-seg.tool {
+  background: var(--tool);
+}
+.timeline-seg.shell {
+  background: var(--shell);
+}
+.timeline-seg.other {
+  background: var(--other);
+}
+
+.timeline-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.timeline-legend .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.25rem;
+  vertical-align: middle;
+}
+.timeline-legend .dot.user {
+  background: var(--user);
+}
+.timeline-legend .dot.assistant {
+  background: var(--assistant);
+}
+.timeline-legend .dot.tool {
+  background: var(--tool);
+}
+.timeline-legend .dot.shell {
+  background: var(--shell);
+}
+.timeline-legend .dot.other {
+  background: var(--other);
+}
